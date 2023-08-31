@@ -1,7 +1,9 @@
 import React, {FC} from 'react';
+import MyInput from "./UI/input/MyInput";
+import MyButton from "./UI/button/MyButton";
 
 export interface Post {
-    id: number;
+    id?: number;
     title: string;
     body: string;
 }
@@ -9,9 +11,10 @@ export interface Post {
 export interface PostItemProps {
     number: number;
     post: Post;
+    remove(post:Post): void;
 }
 
-const PostItem: FC<PostItemProps> = ({ number,post}) => {
+const PostItem: FC<PostItemProps> = ({ number, post, remove}) => {
     const { title, body} = post;
 
     return (
@@ -23,7 +26,7 @@ const PostItem: FC<PostItemProps> = ({ number,post}) => {
                 </div>
             </div>
             <div className="post__btns">
-                <button>Видалить</button>
+                <MyButton onClick={() => remove(post)}>Видалить</MyButton>
             </div>
         </div>
     );
