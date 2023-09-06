@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import MyInput from "./UI/input/MyInput";
 import MyButton from "./UI/button/MyButton";
+import {useHistory} from "react-router-dom";
 
 export interface Post {
     id?: number;
@@ -15,18 +15,23 @@ export interface PostItemProps {
 }
 
 const PostItem: FC<PostItemProps> = ({ number, post, remove}) => {
-    const { title, body} = post;
-
+    const {id, title, body} = post;
+    const router = useHistory()
     return (
         <div className="post">
             <div className="post__content">
-                <strong>{number}.{title}</strong>
+                <strong>{id}.{title}</strong>
                 <div>
                     {body}
                 </div>
             </div>
             <div className="post__btns">
-                <MyButton onClick={() => remove(post)}>Видалить</MyButton>
+                <MyButton onClick={() => router.push(`/posts/${id}`)}>
+                    Відкрити
+                </MyButton>
+                <MyButton onClick={() => remove(post)}>
+                    Видалити
+                </MyButton>
             </div>
         </div>
     );
